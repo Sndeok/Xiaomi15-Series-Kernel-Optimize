@@ -3,7 +3,7 @@ ui_print "****************************************"
 ui_print " Xiaomi15-Series-Kernel-Optimize"
 ui_print " Performance / Memory / IO / Log / No NTSync"
 ui_print " Author: 酷安@Amktiao、GitHub@SndeOK"
-ui_print " Version: 3.6"
+ui_print " Version: 6.0"
 ui_print "****************************************"
 
 print_done() {
