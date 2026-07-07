@@ -9,12 +9,24 @@ wait_boot() {
   sleep 10
 }
 
+module_loaded() {
+  local name="$1"
+  lsmod 2>/dev/null | awk -v n="$name" '$1 == n { found=1 } END { exit !found }'
+}
+
 load_ko() {
   local ko="$1"
   local name="$2"
-  if lsmod 2>/dev/null | awk -v n="$name" '$1 == n { found=1 } END { exit !found }'; then
-    return 0
+
+  if module_loaded "$name"; then
+    rmmod "$name" >/dev/null 2>&1
+    sleep 1
   fi
+
+  if module_loaded "$name"; then
+    return 1
+  fi
+
   [ -f "$ko" ] && insmod "$ko" >/dev/null 2>&1
 }
 
@@ -89,9 +101,6 @@ update_module_description() {
 main() {
   wait_boot
 
-  rmmod binder_prio >/dev/null 2>&1
-  rmmod kshrink_slabd >/dev/null 2>&1
-  sleep 2
   load_ko "$MODDIR/modules/kshrink_slabd.ko" "kshrink_slabd"
   load_ko "$MODDIR/modules/mi_rmap_efficiency.ko" "mi_rmap_efficiency"
   load_ko "$MODDIR/modules/binder_prio.ko" "binder_prio"
