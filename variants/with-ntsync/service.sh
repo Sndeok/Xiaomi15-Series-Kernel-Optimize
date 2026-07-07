@@ -14,20 +14,53 @@ module_loaded() {
   lsmod 2>/dev/null | awk -v n="$name" '$1 == n { found=1 } END { exit !found }'
 }
 
+append_load_status() {
+  local line="$1"
+  if [ -n "$load_status_msg" ]; then
+    load_status_msg="$load_status_msg\n$line"
+  else
+    load_status_msg="$line"
+  fi
+}
+
 load_ko() {
   local ko="$1"
   local name="$2"
+  local existed=0
 
   if module_loaded "$name"; then
+    existed=1
     rmmod "$name" >/dev/null 2>&1
     sleep 1
   fi
 
   if module_loaded "$name"; then
+    append_load_status "$name.ko卸载失败，保留现有模块⚠️"
     return 1
   fi
 
-  [ -f "$ko" ] && insmod "$ko" >/dev/null 2>&1
+  if [ ! -f "$ko" ]; then
+    append_load_status "$name.ko文件不存在⚠️"
+    return 1
+  fi
+
+  insmod "$ko" >/dev/null 2>&1
+  sleep 1
+
+  if module_loaded "$name"; then
+    if [ "$existed" = "1" ]; then
+      append_load_status "$name.ko已重新载入😋"
+    else
+      append_load_status "$name.ko已载入😋"
+    fi
+  else
+    if [ "$existed" = "1" ]; then
+      append_load_status "$name.ko重新载入失败⚠️"
+    else
+      append_load_status "$name.ko载入失败⚠️"
+    fi
+    return 1
+  fi
 }
 
 apply_ntsync_env() {
@@ -68,21 +101,8 @@ kill_hyperos_log() {
 
 
 update_module_description() {
-  loaded_msg=""
+  loaded_msg="$load_status_msg"
   log_msg=""
-  loaded_list=""
-
-  loaded_modules=$(lsmod 2>/dev/null)
-  for name in binder_prio kshrink_slabd mi_rmap_efficiency mi_async_reclaim; do
-    if echo "$loaded_modules" | awk -v n="$name" '$1 == n { found=1 } END { exit !found }'; then
-      if [ -n "$loaded_list" ]; then
-        loaded_list="$loaded_list、$name.ko"
-      else
-        loaded_list="$name.ko"
-      fi
-    fi
-  done
-  [ -n "$loaded_list" ] && loaded_msg="${loaded_list}已载入😋"
 
   log_ok=1
   tags="RecentsTaskLoader AurogonImmobulusMode ViewRootImplStubImpl RefreshRateSelector DynamicIslandEventCoordinator MiuiWallpaperSurfaceAnimation ActivityManagerWrapper MiuiDecorationDot MiuiDecorationBottom MiuiDecorationBase MIUIInput RenderEngine InsetsSource HwcComposer PassBlur TRUETONE NTKernel"
@@ -106,6 +126,8 @@ update_module_description() {
   fi
 }
 main() {
+  load_status_msg=""
+
   wait_boot
 
   load_ko "$MODDIR/modules/ntsync.ko" "ntsync"
