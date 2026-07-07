@@ -4,18 +4,26 @@
 
 作者：酷安@Amktiao、GitHub@SndeOK
 
+## 优化来源
+
+相关优化内容来源于酷安 @Amktiao 帖子：
+
+- [小米15系列 6.6 内核模块优化合集：binder_prio、kshrink_slabd、mi_rmap_efficiency、NTSync 与 IO/VM 优化](https://www.coolapk.com/feed/72139408?s=MjBiZjA4ZmYxNmRjZDZjZzZhNGQwZGRjega1622)
+- [关闭 HyperOS 高频调试日志，降低 logd 额外开销](https://www.coolapk.com/feed/72422245?s=ZjJlZmFhNzExNmRjZDZjZzZhNGQwZGRhega1622)
+- [小米15系列 mi_async_reclaim 异步内存回收优化模块](https://www.coolapk.com/feed/72357281?s=MDRiZDE5ZWUxNmRjZDZjZzZhNGQwZTg0ega1622)
+
 ## 版本选择
 
 Release 中提供两个可刷入版本：
 
 1. **No-NTSync 版本**
    - 文件：`Xiaomi15-Series-Kernel-Optimize-No-NTSync-v1.7.zip`
-   - 适合：不在手机上玩 PC 游戏 / 不需要 Winlator、盖世游戏等 PC 游戏模拟器优化的人。
+   - 适合：无手机上玩 PC 游戏 、Winlator、盖世游戏等 PC 游戏模拟器需求。
    - 不包含 `ntsync.ko` 和 NTSync 相关 SELinux 配置。
 
 2. **With-NTSync 版本**
    - 文件：`Xiaomi15-Series-Kernel-Optimize-With-NTSync-v1.7.zip`
-   - 适合：需要在手机上游玩 PC 游戏，使用 Winlator、盖世游戏等模拟器的人。
+   - 适合：有手机上玩 PC 游戏 、Winlator、盖世游戏等 PC 游戏模拟器需求。
    - 包含 `ntsync.ko`、`sepolicy.rule` 以及 `/dev/ntsync` 权限配置。
 
 > 两个版本二选一刷入即可，不建议同时安装。
