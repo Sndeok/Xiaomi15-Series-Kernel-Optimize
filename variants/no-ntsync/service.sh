@@ -1,7 +1,7 @@
 #!/system/bin/sh
 
 MODDIR=${0%/*}
-LOG=/data/local/tmp/xiaomi15_kernel_opt_no_ntsync.log
+LOG=/data/system/Xiaomi15-Series-Kernel-Optimize/no-ntsync.log
 
 logi() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG"
@@ -61,6 +61,7 @@ kill_hyperos_log() {
 
 main() {
   wait_boot
+  mkdir -p /data/system/Xiaomi15-Series-Kernel-Optimize
   : > "$LOG"
   logi "module service started"
   logi "current kernel: $(uname -r)"
