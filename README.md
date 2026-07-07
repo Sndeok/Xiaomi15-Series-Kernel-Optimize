@@ -22,25 +22,10 @@
 - F2FS checkpoint 优化：调整 userdata 分区 checkpoint 线程 I/O 优先级
 - VM 内存参数优化：根据设备内存容量调整部分 `/proc/sys/vm` 参数
 - HyperOS 日志优化：降低指定高频调试日志输出，减少额外开销
-- 模块状态显示：开机后在模块描述中按状态合并显示 `.ko` 载入、重新载入、卸载失败、载入失败等结果
-
-## 模块信息
-
-- 模块 ID：`xiaomi15_kernel_opt`
-- 安装目录：`/data/adb/modules/xiaomi15_kernel_opt/`
-- 当前版本：`v6.0`
-- 在线更新：已支持 Magisk / KernelSU / APatch 等模块管理器读取 `updateJson` 检测更新
-
-## 模块名称
-
-Release 中提供两个版本，模块名称分别为：
-
-1. **小米15系列内核优化-No-NTSync**
-2. **小米15系列内核优化-With-NTSync**
-
-> 两个版本使用同一个模块 ID，二选一刷入即可；切换版本时会覆盖同一模块目录，不建议同时安装。
 
 ## 版本选择
+
+> 两个版本使用同一个模块 ID，二选一刷入即可；切换版本时会覆盖同一模块目录，不建议同时安装。
 
 ### No-NTSync 版本
 
@@ -53,38 +38,6 @@ Release 中提供两个版本，模块名称分别为：
 - 文件：`小米15系列内核优化-With-NTSync-v6.0.zip`
 - 适合：有手机游玩 PC 游戏 / Winlator / 盖世游戏等 PC 游戏模拟器需求的用户
 - 包含：`ntsync.ko`、`sepolicy.rule`、`/dev/ntsync` 权限配置
-
-## 模块状态显示示例
-
-开机执行后，模块描述可能显示类似：
-
-```text
-kshrink_slabd.ko、binder_prio.ko已重新载入😋
-mi_rmap_efficiency.ko、mi_async_reclaim.ko已载入😋
-日志缓冲区写入已禁用😋
-```
-
-如果系统或其他模块已加载同名 `.ko`，本模块会先尝试卸载，再加载模块内置 `.ko`。如果卸载失败，会在模块描述中显示：
-
-```text
-xxx.ko卸载失败，保留现有模块⚠️
-```
-
-## 更新日志
-
-更新日志文件：[`CHANGELOG.md`](./CHANGELOG.md)
-
-模块在线更新 JSON 中的 `changelog` 也指向该文件。
-
-## 运行日志
-
-模块不写入运行时日志文件，不会额外生成 `/sdcard/*.log`、`/data/local/tmp/*.log` 或模块目录内 `.log` 文件。
-
-模块仅会：
-
-- 刷入时通过安装界面显示启用项和版本号
-- 开机后通过 `setprop log.tag.xxx S` 降低指定 HyperOS 高频日志输出
-- 更新自身 `module.prop` 的 `description` 用于显示模块状态
 
 ## 风险提示
 
