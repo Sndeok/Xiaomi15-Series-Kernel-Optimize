@@ -14,13 +14,37 @@ module_loaded() {
   lsmod 2>/dev/null | awk -v n="$name" '$1 == n { found=1 } END { exit !found }'
 }
 
-append_load_status() {
+append_item() {
+  local var="$1"
+  local item="$2"
+  local current=""
+
+  eval "current=\${$var}"
+  if [ -n "$current" ]; then
+    current="$current、$item"
+  else
+    current="$item"
+  fi
+  eval "$var=\$current"
+}
+
+append_desc_line() {
   local line="$1"
   if [ -n "$load_status_msg" ]; then
     load_status_msg="$load_status_msg\n$line"
   else
     load_status_msg="$line"
   fi
+}
+
+build_load_status_msg() {
+  load_status_msg=""
+  [ -n "$reloaded_list" ] && append_desc_line "${reloaded_list}已重新载入😋"
+  [ -n "$loaded_list" ] && append_desc_line "${loaded_list}已载入😋"
+  [ -n "$unload_failed_list" ] && append_desc_line "${unload_failed_list}卸载失败，保留现有模块⚠️"
+  [ -n "$reload_failed_list" ] && append_desc_line "${reload_failed_list}重新载入失败⚠️"
+  [ -n "$load_failed_list" ] && append_desc_line "${load_failed_list}载入失败⚠️"
+  [ -n "$missing_list" ] && append_desc_line "${missing_list}文件不存在⚠️"
 }
 
 load_ko() {
@@ -35,12 +59,12 @@ load_ko() {
   fi
 
   if module_loaded "$name"; then
-    append_load_status "$name.ko卸载失败，保留现有模块⚠️"
+    append_item unload_failed_list "$name.ko"
     return 1
   fi
 
   if [ ! -f "$ko" ]; then
-    append_load_status "$name.ko文件不存在⚠️"
+    append_item missing_list "$name.ko"
     return 1
   fi
 
@@ -49,15 +73,15 @@ load_ko() {
 
   if module_loaded "$name"; then
     if [ "$existed" = "1" ]; then
-      append_load_status "$name.ko已重新载入😋"
+      append_item reloaded_list "$name.ko"
     else
-      append_load_status "$name.ko已载入😋"
+      append_item loaded_list "$name.ko"
     fi
   else
     if [ "$existed" = "1" ]; then
-      append_load_status "$name.ko重新载入失败⚠️"
+      append_item reload_failed_list "$name.ko"
     else
-      append_load_status "$name.ko载入失败⚠️"
+      append_item load_failed_list "$name.ko"
     fi
     return 1
   fi
@@ -94,6 +118,7 @@ kill_hyperos_log() {
 
 
 update_module_description() {
+  build_load_status_msg
   loaded_msg="$load_status_msg"
   log_msg=""
 
@@ -120,6 +145,12 @@ update_module_description() {
 }
 main() {
   load_status_msg=""
+  loaded_list=""
+  reloaded_list=""
+  unload_failed_list=""
+  load_failed_list=""
+  reload_failed_list=""
+  missing_list=""
 
   wait_boot
 
