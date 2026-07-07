@@ -12,6 +12,6 @@ ui_print "- 应用 IO 调度器与 F2FS checkpoint 优化"
 ui_print "- 应用 VM 内存参数优化"
 ui_print "- 降低 HyperOS 高频调试日志输出"
 ui_print "- 开机后自动执行优化"
-ui_print "- 运行日志: /data/system/Xiaomi15-Series-Kernel-Optimize/no-ntsync.log"
+ui_print "- 不写入运行时日志，减少持久化痕迹"
 set_perm_recursive $MODPATH 0 0 0755 0644
 set_perm $MODPATH/service.sh 0 0 0755

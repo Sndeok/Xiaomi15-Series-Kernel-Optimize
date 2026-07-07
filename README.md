@@ -17,12 +17,12 @@
 Release 中提供两个可刷入版本：
 
 1. **No-NTSync 版本**
-   - 文件：`Xiaomi15-Series-Kernel-Optimize-No-NTSync-v1.8.zip`
+   - 文件：`Xiaomi15-Series-Kernel-Optimize-No-NTSync-v1.9.zip`
    - 适合：无手机上玩 PC 游戏 、Winlator、盖世游戏等 PC 游戏模拟器需求。
    - 不包含 `ntsync.ko` 和 NTSync 相关 SELinux 配置。
 
 2. **With-NTSync 版本**
-   - 文件：`Xiaomi15-Series-Kernel-Optimize-With-NTSync-v1.8.zip`
+   - 文件：`Xiaomi15-Series-Kernel-Optimize-With-NTSync-v1.9.zip`
    - 适合：有手机上玩 PC 游戏 、Winlator、盖世游戏等 PC 游戏模拟器需求。
    - 包含 `ntsync.ko`、`sepolicy.rule` 以及 `/dev/ntsync` 权限配置。
 
@@ -40,17 +40,7 @@ Release 中提供两个可刷入版本：
 
 ## 运行日志
 
-No-NTSync 版本：
-
-```text
-/data/system/Xiaomi15-Series-Kernel-Optimize/no-ntsync.log
-```
-
-With-NTSync 版本：
-
-```text
-/data/system/Xiaomi15-Series-Kernel-Optimize/with-ntsync.log
-```
+模块不写入运行时日志，减少持久化痕迹。刷入时会显示具体启用的优化内容。
 
 ## 风险提示
 
