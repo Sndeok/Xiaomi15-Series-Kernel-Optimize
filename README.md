@@ -4,7 +4,23 @@
 
 作者：酷安@Amktiao、GitHub@SndeOK
 
-## 优化内容
+## 版本选择
+
+Release 中提供两个可刷入版本：
+
+1. **No-NTSync 版本**
+   - 文件：`Xiaomi15-Series-Kernel-Optimize-No-NTSync-v1.7.zip`
+   - 适合：不在手机上玩 PC 游戏 / 不需要 Winlator、盖世游戏等 PC 游戏模拟器优化的人。
+   - 不包含 `ntsync.ko` 和 NTSync 相关 SELinux 配置。
+
+2. **With-NTSync 版本**
+   - 文件：`Xiaomi15-Series-Kernel-Optimize-With-NTSync-v1.7.zip`
+   - 适合：需要在手机上游玩 PC 游戏，使用 Winlator、盖世游戏等模拟器的人。
+   - 包含 `ntsync.ko`、`sepolicy.rule` 以及 `/dev/ntsync` 权限配置。
+
+> 两个版本二选一刷入即可，不建议同时安装。
+
+## 通用优化内容
 
 - 系统交互与调度优化：`binder_prio.ko`
 - 内存回收优化：`kshrink_slabd.ko`
@@ -14,40 +30,18 @@
 - VM 内存参数优化
 - 降低 HyperOS 高频调试日志
 
-## 说明
-
-- 无 NTSync 相关优化。
-- 不包含 `ntsync.ko`。
-- 不包含 NTSync SELinux 规则。
-- 不检测内核版本，开机后直接尝试加载 `.ko` 模块。
-
-## 安装
-
-在 Magisk / KernelSU / APatch 管理器中刷入：
-
-```text
-releases/Xiaomi15-Kernel-Optimize-No-NTSync-NoCheck-v1.5.zip
-```
-
-刷入后重启。
-
 ## 运行日志
+
+No-NTSync 版本：
 
 ```text
 /data/local/tmp/xiaomi15_kernel_opt_no_ntsync.log
 ```
 
-## 文件结构
+With-NTSync 版本：
 
 ```text
-module.prop
-customize.sh
-service.sh
-modules/
-  binder_prio.ko
-  kshrink_slabd.ko
-  mi_rmap_efficiency.ko
-  mi_async_reclaim.ko
+/data/local/tmp/xiaomi15_kernel_opt_with_ntsync.log
 ```
 
 ## 风险提示
