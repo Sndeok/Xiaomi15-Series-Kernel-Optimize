@@ -1,6 +1,6 @@
 id=xiaomi15_kernel_opt_no_ntsync_nocheck
-name=Xiaomi 15 Kernel Optimize No NTSync No Check
-version=1.5
-versionCode=6
+name=Xiaomi15-Series-Kernel-Optimize
+version=1.6
+versionCode=7
 author=酷安@Amktiao、GitHub@SndeOK
 description=小米15系列内核与系统优化模块，包括：系统交互与调度优化、内存回收优化、页面回收效率优化、异步内存回收、IO 调度器与 F2FS checkpoint 优化、 VM 内存参数优化、降低 HyperOS 高频调试日志。无NTSync相关优化。
