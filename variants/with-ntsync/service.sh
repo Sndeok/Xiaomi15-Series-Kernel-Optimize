@@ -12,7 +12,7 @@ wait_boot() {
 load_ko() {
   local ko="$1"
   local name="$2"
-  if lsmod 2>/dev/null | grep -q "^$name\b"; then
+  if lsmod 2>/dev/null | awk -v n="$name" '$1 == n { found=1 } END { exit !found }'; then
     return 0
   fi
   [ -f "$ko" ] && insmod "$ko" >/dev/null 2>&1
@@ -60,9 +60,9 @@ update_module_description() {
   log_msg=""
   loaded_list=""
 
-  loaded_modules=$(lsmod 2>/dev/null | grep -E "binder_prio|kshrink_slabd|mi_rmap_efficiency|mi_async_reclaim")
+  loaded_modules=$(lsmod 2>/dev/null)
   for name in binder_prio kshrink_slabd mi_rmap_efficiency mi_async_reclaim; do
-    if echo "$loaded_modules" | grep -q "^$name\b"; then
+    if echo "$loaded_modules" | awk -v n="$name" '$1 == n { found=1 } END { exit !found }'; then
       if [ -n "$loaded_list" ]; then
         loaded_list="$loaded_list、$name.ko"
       else
