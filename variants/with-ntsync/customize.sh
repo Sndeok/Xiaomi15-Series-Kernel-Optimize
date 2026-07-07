@@ -7,7 +7,7 @@ ui_print "****************************************"
 
 print_done() {
   printf "%s " "$1"
-  sleep 0.2
+  sleep 0.28
   ui_print "✅"
 }
 print_done "加载系统交互与调度优化模块: binder_prio"
