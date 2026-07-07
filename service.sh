@@ -47,6 +47,45 @@ kill_hyperos_log() {
   done
 }
 
+
+update_module_description() {
+  loaded_msg=""
+  log_msg=""
+  loaded_list=""
+
+  loaded_modules=$(lsmod 2>/dev/null | grep -E "binder_prio|kshrink_slabd|mi_rmap_efficiency|mi_async_reclaim")
+  for name in binder_prio kshrink_slabd mi_rmap_efficiency mi_async_reclaim; do
+    if echo "$loaded_modules" | grep -q "^$name\b"; then
+      if [ -n "$loaded_list" ]; then
+        loaded_list="$loaded_list、$name.ko"
+      else
+        loaded_list="$name.ko"
+      fi
+    fi
+  done
+  [ -n "$loaded_list" ] && loaded_msg="${loaded_list}已载入😋"
+
+  log_ok=1
+  tags="RecentsTaskLoader AurogonImmobulusMode ViewRootImplStubImpl RefreshRateSelector DynamicIslandEventCoordinator MiuiWallpaperSurfaceAnimation ActivityManagerWrapper MiuiDecorationDot MiuiDecorationBottom MiuiDecorationBase MIUIInput RenderEngine InsetsSource HwcComposer PassBlur TRUETONE NTKernel"
+  for tag in $tags; do
+    [ "$(getprop log.tag.$tag)" = "S" ] || log_ok=0
+  done
+  [ "$log_ok" = "1" ] && log_msg="日志缓冲区写入已禁用😋"
+
+  desc="$loaded_msg"
+  if [ -n "$log_msg" ]; then
+    if [ -n "$desc" ]; then
+      desc="$desc\n$log_msg"
+    else
+      desc="$log_msg"
+    fi
+  fi
+
+  if [ -n "$desc" ] && [ -f "$MODDIR/module.prop" ]; then
+    safe_desc=$(printf '%s' "$desc" | sed 's/[\\&]/\\&/g')
+    sed -i "s/^description=.*/description=$safe_desc/" "$MODDIR/module.prop"
+  fi
+}
 main() {
   wait_boot
 
@@ -60,6 +99,7 @@ main() {
 
   apply_system_opt
   kill_hyperos_log
+  update_module_description
 }
 
 main &
