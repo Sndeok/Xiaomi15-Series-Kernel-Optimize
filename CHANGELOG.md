@@ -20,5 +20,13 @@
 
 - No-NTSync：不包含 `ntsync.ko`，适合无手机游玩 PC 游戏 / Winlator / 盖世游戏等需求的用户。
 - With-NTSync：包含 `ntsync.ko`、`sepolicy.rule` 与 `/dev/ntsync` 权限配置，适合有 PC 游戏模拟器需求的用户。
-- With-NTSync 说明：`ntsync.ko` 依赖高通 / QCOM 的 `debug_symbol` 前置模块；使用 `lsmod | grep -E "ntsync|kshrink|mi_rmap|binder_prio"` 查询时，`debug_symbol` 因 Used by 列包含 `ntsync` 等模块而被匹配显示，属于正常现象。
+- With-NTSync 说明：`ntsync.ko` 依赖高通 / QCOM 的 `debug_symbol` 前置模块；使用 `lsmod | grep -E "ntsync|kshrink|mi_rmap|binder_prio"` 查询时可能显示类似下面的结果，其中 `debug_symbol` 因 Used by 列包含 `ntsync` 等模块而被匹配显示，属于正常现象。
+
+```text
+mi_rmap_efficiency  16384 0
+ntsync             28672 0
+binder_prio        16384 0
+kshrink_slabd      16384 0
+debug_symbol       16384 5 ntsync,debug_ext,qcom_logbuf_vendor_hooks,minidump,qcom_dma_heaps, [permanent]
+```
 
