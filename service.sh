@@ -37,10 +37,22 @@ append_desc_line() {
   fi
 }
 
+append_loaded_desc_lines() {
+  local list="$1"
+  local item=""
+
+  while [ -n "$list" ]; do
+    item="${list%%、*}"
+    append_desc_line "${item}已载入😋"
+    [ "$list" = "$item" ] && break
+    list="${list#*、}"
+  done
+}
+
 build_load_status_msg() {
   load_status_msg=""
   [ -n "$reloaded_list" ] && append_desc_line "${reloaded_list}已重新载入😋"
-  [ -n "$loaded_list" ] && append_desc_line "${loaded_list}已载入😋"
+  [ -n "$loaded_list" ] && append_loaded_desc_lines "$loaded_list"
   [ -n "$unload_failed_list" ] && append_desc_line "${unload_failed_list}卸载失败，保留现有模块⚠️"
   [ -n "$reload_failed_list" ] && append_desc_line "${reload_failed_list}重新载入失败⚠️"
   [ -n "$load_failed_list" ] && append_desc_line "${load_failed_list}载入失败⚠️"
@@ -127,7 +139,7 @@ update_module_description() {
   for tag in $tags; do
     [ "$(getprop log.tag.$tag)" = "S" ] || log_ok=0
   done
-  [ "$log_ok" = "1" ] && log_msg="日志缓冲区写入已禁用😋"
+  [ "$log_ok" = "1" ] && log_msg="Xiaomi调试日志已关闭✅"
 
   desc="$loaded_msg"
   if [ -n "$log_msg" ]; then
