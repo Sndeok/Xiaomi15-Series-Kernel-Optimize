@@ -41,10 +41,11 @@
 - 说明：`ntsync.ko` 依赖高通 / QCOM 的 `debug_symbol` 前置模块。使用类似 `lsmod | grep -E "^(Module|ntsync|mi_async_reclaim|binder_prio|mi_rmap_efficiency|kshrink_slabd|debug_symbol)[[:space:]]"` 查询时，可能会显示类似下面的结果；该命令按模块名首列筛选；`debug_symbol` 是 `ntsync.ko` 的前置依赖，显示出来属于正常现象。
 
 ```text
-mi_rmap_efficiency  16384 0
-ntsync             28672 0
+mi_async_reclaim   20480 0
 binder_prio        16384 0
+mi_rmap_efficiency 16384 0
 kshrink_slabd      16384 0
+ntsync             28672 0
 debug_symbol       16384 5 ntsync,debug_ext,qcom_logbuf_vendor_hooks,minidump,qcom_dma_heaps, [permanent]
 ```
 
