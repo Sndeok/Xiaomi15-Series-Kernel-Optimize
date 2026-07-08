@@ -2,7 +2,7 @@
 
 小米 15 系列内核与系统优化 Magisk 模块，提供 **No-NTSync** 与 **With-NTSync** 两个可刷入版本。
 
-作者：酷安@Amktiao、GitHub@SndeOK
+作者：酷安@Amktiao, GitHub@SndeOK
 
 ## 优化来源
 
@@ -29,13 +29,13 @@
 
 ### No-NTSync 版本
 
-- 文件：`Xiaomi15-Series-Kernel-Optimize-No-NTSync-v6.0.zip`
+- 文件：`Xiaomi15-Series-Kernel-Optimize-No-NTSync-v6.6.zip`
 - 适合：无手机游玩 PC 游戏 / Winlator / 盖世游戏等 PC 游戏模拟器需求的用户
 - 不包含：`ntsync.ko`、NTSync SELinux 配置、`/dev/ntsync` 权限配置
 
 ### With-NTSync 版本
 
-- 文件：`Xiaomi15-Series-Kernel-Optimize-With-NTSync-v6.0.zip`
+- 文件：`Xiaomi15-Series-Kernel-Optimize-With-NTSync-v6.6.zip`
 - 适合：有手机游玩 PC 游戏 / Winlator / 盖世游戏等 PC 游戏模拟器需求的用户
 - 包含：`ntsync.ko`、`sepolicy.rule`、`/dev/ntsync` 权限配置
 
