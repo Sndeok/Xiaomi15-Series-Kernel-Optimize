@@ -21,7 +21,7 @@ append_item() {
 
   eval "current=\${$var}"
   if [ -n "$current" ]; then
-    current="$current、$item"
+    current="$current, $item"
   else
     current="$item"
   fi
@@ -42,10 +42,10 @@ append_loaded_desc_lines() {
   local item=""
 
   while [ -n "$list" ]; do
-    item="${list%%、*}"
+    item="${list%%, *}"
     append_desc_line "${item}已载入😋"
     [ "$list" = "$item" ] && break
-    list="${list#*、}"
+    list="${list#*, }"
   done
 }
 
@@ -139,7 +139,11 @@ update_module_description() {
   for tag in $tags; do
     [ "$(getprop log.tag.$tag)" = "S" ] || log_ok=0
   done
-  [ "$log_ok" = "1" ] && log_msg="Xiaomi调试日志已关闭✅"
+  if [ "$log_ok" = "1" ]; then
+    log_msg="Xiaomi调试日志已关闭✅"
+  else
+    log_msg="Xiaomi调试日志关闭失败❌"
+  fi
 
   desc="$loaded_msg"
   if [ -n "$log_msg" ]; then
