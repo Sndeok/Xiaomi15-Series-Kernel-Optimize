@@ -32,13 +32,21 @@
 - 文件：`Xiaomi15-Series-Kernel-Optimize-No-NTSync-v6.6.zip`
 - 适合：无手机游玩 PC 游戏 / Winlator / 盖世游戏等 PC 游戏模拟器需求的用户
 - 不包含：`ntsync.ko`、NTSync SELinux 配置、`/dev/ntsync` 权限配置
+- 查询：使用 `lsmod | grep -E "mi_async_reclaim|binder_prio|mi_rmap_efficiency|kshrink_slabd"` 可能显示类似下面的结果：
+
+```text
+mi_async_reclaim   20480 0
+binder_prio        16384 0
+mi_rmap_efficiency 16384 0
+kshrink_slabd      16384 0
+```
 
 ### With-NTSync 版本
 
 - 文件：`Xiaomi15-Series-Kernel-Optimize-With-NTSync-v6.6.zip`
 - 适合：有手机游玩 PC 游戏 / Winlator / 盖世游戏等 PC 游戏模拟器需求的用户
 - 包含：`ntsync.ko`、`sepolicy.rule`、`/dev/ntsync` 权限配置
-- 说明：`ntsync.ko` 依赖高通 / QCOM 的 `debug_symbol` 前置模块。使用类似 `lsmod | grep -E "^(Module|ntsync|mi_async_reclaim|binder_prio|mi_rmap_efficiency|kshrink_slabd|debug_symbol)[[:space:]]"` 查询时，可能会显示类似下面的结果；该命令按模块名首列筛选；`debug_symbol` 是 `ntsync.ko` 的前置依赖，显示出来属于正常现象。
+- 说明：`ntsync.ko` 依赖高通 / QCOM 的 `debug_symbol` 前置模块。使用 `lsmod | grep -E "ntsync|mi_async_reclaim|binder_prio|mi_rmap_efficiency|kshrink_slabd"` 查询时，可能会显示类似下面的结果；其中 `debug_symbol` 因 Used by 列包含 `ntsync` 而被匹配显示，属于正常现象。
 
 ```text
 mi_async_reclaim   20480 0
