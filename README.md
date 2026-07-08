@@ -38,6 +38,7 @@
 - 文件：`Xiaomi15-Series-Kernel-Optimize-With-NTSync-v6.6.zip`
 - 适合：有手机游玩 PC 游戏 / Winlator / 盖世游戏等 PC 游戏模拟器需求的用户
 - 包含：`ntsync.ko`、`sepolicy.rule`、`/dev/ntsync` 权限配置
+- 说明：`ntsync.ko` 依赖高通 / QCOM 的 `debug_symbol` 前置模块。使用类似 `lsmod | grep -E "ntsync|kshrink|mi_rmap|binder_prio"` 查询时，可能会同时匹配到 `debug_symbol` 行，这是因为 `debug_symbol` 的 Used by 列包含 `ntsync` 等模块，属于正常现象。
 
 ## 风险提示
 
