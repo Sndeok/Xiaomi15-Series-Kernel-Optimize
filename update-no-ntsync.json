@@ -1,6 +1,6 @@
 {
-  "version": "6.0",
-  "versionCode": 60,
-  "zipUrl": "https://github.com/Sndeok/Xiaomi15-Series-Kernel-Optimize/releases/download/v6.0/Xiaomi15-Series-Kernel-Optimize-No-NTSync-v6.0.zip",
+  "version": "v6.6",
+  "versionCode": 66,
+  "zipUrl": "https://github.com/Sndeok/Xiaomi15-Series-Kernel-Optimize/releases/download/v6.6/Xiaomi15-Series-Kernel-Optimize-No-NTSync-v6.6.zip",
   "changelog": "https://raw.githubusercontent.com/Sndeok/Xiaomi15-Series-Kernel-Optimize/main/CHANGELOG.md"
 }
