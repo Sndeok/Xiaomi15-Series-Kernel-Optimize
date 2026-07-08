@@ -9,8 +9,8 @@
 相关优化内容来源于酷安 @Amktiao 帖子：
 
 - [小米15系列 6.6 内核模块优化合集：binder_prio、kshrink_slabd、mi_rmap_efficiency、NTSync 与 IO/VM 优化](https://www.coolapk.com/feed/72139408?s=MjBiZjA4ZmYxNmRjZDZjZzZhNGQwZGRjega1622)
-- [关闭 HyperOS 高频调试日志，降低 logd 额外开销](https://www.coolapk.com/feed/72422245?s=ZjJlZmFhNzExNmRjZDZjZzZhNGQwZGRhega1622)
-- [小米15系列 mi_async_reclaim 异步内存回收优化模块](https://www.coolapk.com/feed/72357281?s=MDRiZDE5ZWUxNmRjZDZjZzZhNGQwZTg0ega1622)
+- [关闭 HyperOS 高频调试日志，降低 logd 额外开销](https://www.coolapk.com/feed/72357281?s=MDRiZDE5ZWUxNmRjZDZjZzZhNGQwZTg0ega1622)
+- [小米15系列 mi_async_reclaim 异步内存回收优化模块](https://www.coolapk.com/feed/72422245?s=ZjJlZmFhNzExNmRjZDZjZzZhNGQwZGRhega1622)
 
 ## 模块优化内容
 
