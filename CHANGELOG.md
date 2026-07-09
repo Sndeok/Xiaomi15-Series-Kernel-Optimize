@@ -1,5 +1,9 @@
 # 更新日志
 
+## v1.2
+
+update .ko file
+
 ## v1.0
 
 小米15系列内核优化模块首个正式发布版，提供 No-NTSync 与 With-NTSync 两个可刷入版本。
